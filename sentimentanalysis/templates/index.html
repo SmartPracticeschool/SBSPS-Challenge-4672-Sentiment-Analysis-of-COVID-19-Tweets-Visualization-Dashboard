@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0,">.
+    <title>COVID-19 Tweets Analysis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <link href="https://res.cloudinary.com/dseemci6h/raw/upload/v1594205698/black-dashboard_q2bgmh.css" rel="stylesheet" />
+  <script src="https://res.cloudinary.com/dseemci6h/raw/upload/v1594205708/black-dashboard_hwtary.js"></script>
+</head>
+<body style="background-color:#1E1E2B">
+<div class="wrapper" >
+    <div class="sidebar" data="blue">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
+    -->
+      <div class="sidebar-wrapper ps" data-color="blue">
+        <div class="logo">
+          <a href="javascript:void(0)" class="simple-text logo-normal">
+            Sentiment Analysis
+          </a>
+        </div>
+        <ul class="nav">
+          <li class="active ">
+            <a href="/">
+              <i class="tim-icons icon-chart-pie-36"></i>
+              <p>All Over Data</p>
+            </a>
+          </li>
+          <li>
+            <a href="/major_cities">
+              <i class="tim-icons icon-atom"></i>
+              <p>Major Cities</p>
+            </a>
+          </li>
+          <li>
+            <a href="/about-us">
+              <i class="tim-icons icon-pin"></i>
+              <p>About Us</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel" data="blue">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent" style="background-color:rgba(0,0,0,0);">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle d-inline">
+              <button type="button" class="navbar-toggler" >
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="javascript:void(0)">Sentiment Analysis</a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-chart">
+              <div class="card-header ">
+                <div class="row">
+                  <div class="col-sm-6 text-left">
+                    <h5 class="card-category">Data of past 7 days</h5>
+                    <h2 class="card-title">Polarity</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="polarity_date"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-chart">
+              <div class="card-header ">
+                <div class="row">
+                  <div class="col-sm-6 text-left">
+                    <h5 class="card-category">Data of Past 7 Days</h5>
+                    <h2 class="card-title">Emotions</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="emotions_date"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">All Time Data</h5>
+                <h3 class="card-title">Polarity</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="polarity_bar"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">All Time Data</h5>
+                <h3 class="card-title">Emotions</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="emotions_bar"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">All Time Data</h5>
+                <h3 class="card-title">Polarity</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="polarity_line"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">All Time Data</h5>
+                <h3 class="card-title">Emotions</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="emotions_line"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer">
+        <div class="container-fluid"><div class="font-small text-center text-light" style="background-color:#27293D;">
+  <div class="footer-copyright font-weight-bold text-center text-light py-3 mr-4 " >Thanks for Visit
+      <a href="https://paypal.me/akshsisodiya"><button type="button" class="btn btn-secondary text-white my-2 my-sm-0 ml-4 font-weight-bold">Donate</button></a>
+  </div>
+
+</div>
+        </div>
+      </footer>
+    </div>
+  </div>
+<script>
+    $(document).ready(function() {
+      $().ready(function() {
+        $sidebar = $('.sidebar');
+        $navbar = $('.navbar');
+        $main_panel = $('.main-panel');
+
+        $full_page = $('.full-page');
+
+        $sidebar_responsive = $('body > .navbar-collapse');
+        sidebar_mini_active = true;
+        white_color = false;
+
+        window_width = $(window).width();
+
+        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+
+
+        $('.fixed-plugin a').click(function(event) {
+          if ($(this).hasClass('switch-trigger')) {
+            if (event.stopPropagation) {
+              event.stopPropagation();
+            } else if (window.event) {
+              window.event.cancelBubble = true;
+            }
+          }
+        });
+
+        $('.fixed-plugin .background-color span').click(function() {
+          $(this).siblings().removeClass('active');
+          $(this).addClass('active');
+
+          var new_color = $(this).data('color');
+
+          if ($sidebar.length != 0) {
+            $sidebar.attr('data', new_color);
+          }
+
+          if ($main_panel.length != 0) {
+            $main_panel.attr('data', new_color);
+          }
+
+          if ($full_page.length != 0) {
+            $full_page.attr('filter-color', new_color);
+          }
+
+          if ($sidebar_responsive.length != 0) {
+            $sidebar_responsive.attr('data', new_color);
+          }
+        });
+
+        $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
+          var $btn = $(this);
+
+          if (sidebar_mini_active == true) {
+            $('body').removeClass('sidebar-mini');
+            sidebar_mini_active = false;
+            blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
+          } else {
+            $('body').addClass('sidebar-mini');
+            sidebar_mini_active = true;
+            blackDashboard.showSidebarMessage('Sidebar mini activated...');
+          }
+
+          // we simulate the window Resize so the charts will get updated in realtime.
+          var simulateWindowResize = setInterval(function() {
+            window.dispatchEvent(new Event('resize'));
+          }, 180);
+
+          // we stop the simulation of Window Resize after the animations are completed
+          setTimeout(function() {
+            clearInterval(simulateWindowResize);
+          }, 1000);
+        });
+
+        $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
+          var $btn = $(this);
+
+          if (white_color == true) {
+
+            $('body').addClass('change-background');
+            setTimeout(function() {
+              $('body').removeClass('change-background');
+              $('body').removeClass('white-content');
+            }, 900);
+            white_color = false;
+          } else {
+
+            $('body').addClass('change-background');
+            setTimeout(function() {
+              $('body').removeClass('change-background');
+              $('body').addClass('white-content');
+            }, 900);
+
+            white_color = true;
+          }
+
+
+        });
+
+        $('.light-badge').click(function() {
+          $('body').addClass('white-content');
+        });
+
+        $('.dark-badge').click(function() {
+          $('body').removeClass('white-content');
+        });
+      });
+    });
+  </script>
+<script>
+  linechartoptions = {
+      maintainAspectRatio: false,
+      legend: {
+        display: true,
+        position:'top',
+        labels:{
+          fontColor: '#ffffff'
+        }
+      },
+
+      tooltips: {
+        backgroundColor: '#f5f5f5',
+        titleFontColor: '#333',
+        bodyFontColor: '#666',
+        bodySpacing: 4,
+        xPadding: 12,
+        mode: "nearest",
+        intersect: 0,
+        position: "nearest"
+      },
+      responsive: true,
+      scales: {
+        yAxes: [{
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: 'rgba(29,140,248,0.0)',
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            suggestedMin: 60,
+            suggestedMax: 125,
+            padding: 20,
+            fontColor: "#9a9a9a"
+          }
+        }],
+
+        xAxes: [{
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: 'rgba(225,78,202,0.1)',
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            padding: 20,
+            fontColor: "#9a9a9a"
+          }
+        }]
+      }
+    };
+    linewithoutlegend = {
+      maintainAspectRatio: false,
+      legend: {
+        display: false,
+        position:'top',
+        labels:{
+          fontColor: '#ffffff'
+        }
+      },
+
+      tooltips: {
+        backgroundColor: '#f5f5f5',
+        titleFontColor: '#333',
+        bodyFontColor: '#666',
+        bodySpacing: 4,
+        xPadding: 12,
+        mode: "nearest",
+        intersect: 0,
+        position: "nearest"
+      },
+      responsive: true,
+      scales: {
+        yAxes: [{
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: 'rgba(29,140,248,0.0)',
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            suggestedMin: 60,
+            suggestedMax: 125,
+            padding: 20,
+            fontColor: "#9a9a9a"
+          }
+        }],
+
+        xAxes: [{
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: 'rgba(225,78,202,0.1)',
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            padding: 20,
+            fontColor: "#9a9a9a"
+          }
+        }]
+      }
+    };
+gradientBarChartConfiguration = {
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      },
+
+      tooltips: {
+        backgroundColor: '#f5f5f5',
+        titleFontColor: '#333',
+        bodyFontColor: '#666',
+        bodySpacing: 4,
+        xPadding: 12,
+        mode: "nearest",
+        intersect: 0,
+        position: "nearest"
+      },
+      responsive: true,
+      scales: {
+        yAxes: [{
+
+          gridLines: {
+            drawBorder: false,
+            color: 'rgba(29,140,248,0.1)',
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            suggestedMin: 60,
+            suggestedMax: 120,
+            padding: 20,
+            fontColor: "#9e9e9e"
+          }
+        }],
+
+        xAxes: [{
+
+          gridLines: {
+            drawBorder: false,
+            color: 'rgba(29,140,248,0.1)',
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            padding: 20,
+            fontColor: "#9e9e9e"
+          }
+        }]
+      }
+    };
+
+
+var data ={{data | safe}};
+var overall = {{overall | safe}};
+
+//first line chart polarity_line
+
+let ctx = document.getElementById('polarity_date').getContext("2d");
+var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
+gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
+gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
+let massPopChart = new Chart(ctx,{
+   type:'line',
+   data:{
+      labels:data[0],
+      datasets:[{
+        label:"Positive",
+        data:data[1],
+        fill: true,
+        backgroundColor:gradientStroke,
+        borderColor: '#1f8ef1',
+        borderWidth: 2,
+        borderDash: [],
+        borderDashOffset: 0.0,
+        pointBackgroundColor: '#1f8ef1',
+        pointBorderColor: 'rgba(255,255,255,0)',
+        pointHoverBackgroundColor: '#ffffff',
+        pointBorderWidth: 20,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 15,
+        pointRadius: 4,
+        },
+        {
+        label:"Negative",
+        data:data[2],
+        fill: true,
+        backgroundColor:gradientStroke,
+        borderColor: '#d346b1',
+        borderWidth: 2,
+        borderDash: [],
+        borderDashOffset: 0.0,
+        pointBackgroundColor: '#d346b1',
+        pointBorderColor: 'rgba(255,255,255,0)',
+        pointHoverBackgroundColor: '#ffffff',
+        pointBorderWidth: 20,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 15,
+        pointRadius: 4,
+        },
+        {
+        label:"Neutral",
+        data:data[3],
+        fill: true,
+        backgroundColor:gradientStroke,
+        borderColor: '#00d6b4',
+        borderWidth: 2,
+        borderDash: [],
+        borderDashOffset: 0.0,
+        pointBackgroundColor: '#00d6b4',
+        pointBorderColor: 'rgba(255,255,255,0)',
+        pointHoverBackgroundColor: '#ffffff',
+        pointBorderWidth: 20,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 15,
+        pointRadius: 4,
+        }]
+    },
+    options:linechartoptions
+});
+let emo1 = document.getElementById('emotions_date').getContext("2d");
+let emotion_date = new Chart(emo1,{
+   type:'line',
+   data:{
+      labels:data[0],
+      datasets:[{
+        label:"Sad",
+        data:data[4],
+        fill: true,
+        backgroundColor:gradientStroke,
+        borderColor: '#1f8ef1',
+        borderWidth: 2,
+        borderDash: [],
+        borderDashOffset: 0.0,
+        pointBackgroundColor: '#1f8ef1',
+        pointBorderColor: 'rgba(255,255,255,0)',
+        pointHoverBackgroundColor: '#ffffff',
+        pointBorderWidth: 20,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 15,
+        pointRadius: 4,
+        },
+        {
+        label:"Angry",
+        data:data[5],
+        fill: true,
+        backgroundColor:gradientStroke,
+        borderColor: '#d346b1',
+        borderWidth: 2,
+        borderDash: [],
+        borderDashOffset: 0.0,
+        pointBackgroundColor: '#d346b1',
+        pointBorderColor: 'rgba(255,255,255,0)',
+        pointHoverBackgroundColor: '#ffffff',
+        pointBorderWidth: 20,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 15,
+        pointRadius: 4,
+        },
+        {
+        label:"Happy",
+        data:data[6],
+        fill: true,
+        backgroundColor:gradientStroke,
+        borderColor: '#00d6b4',
+        borderWidth: 2,
+        borderDash: [],
+        borderDashOffset: 0.0,
+        pointBackgroundColor: '#00d6b4',
+        pointBorderColor: 'rgba(255,255,255,0)',
+        pointHoverBackgroundColor: '#ffffff',
+        pointBorderWidth: 20,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 15,
+        pointRadius: 4,
+        }]
+    },
+    options:linechartoptions
+});
+
+let bar_pol = document.getElementById('polarity_bar').getContext("2d");
+var bar_pol_chart = new Chart(bar_pol, {
+      type: 'bar',
+      responsive: true,
+      legend: {
+        display: false
+      },
+      data: {
+        labels: ['Positive', 'Negative', 'Neutral'],
+        datasets: [{
+          label: "",
+          fill: true,
+          backgroundColor: gradientStroke,
+          hoverBackgroundColor: gradientStroke,
+          borderColor: '#1f8ef1',
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          data: [overall[0],overall[1],overall[2]],
+        }]
+      },
+      options: gradientBarChartConfiguration
+    });
+
+    let bar_emo = document.getElementById('emotions_bar').getContext("2d");
+var bar_emo_chart = new Chart(bar_emo, {
+      type: 'bar',
+      responsive: true,
+      legend: {
+        display: false
+      },
+      data: {
+        labels: ['Sad', 'Angry', 'Happy'],
+        datasets: [{
+          label: "",
+          fill: true,
+          backgroundColor: gradientStroke,
+          hoverBackgroundColor: gradientStroke,
+          borderColor: '#1f8ef1',
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          data: [overall[3],overall[4],overall[5]],
+        }]
+      },
+      options: gradientBarChartConfiguration
+    });
+
+let pol2 = document.getElementById('polarity_line').getContext("2d");
+let pol_chart = new Chart(pol2,{
+   type:'line',
+   data:{
+      labels:['Positive', 'Negative', 'Neutral'],
+      datasets:[{
+        label:"",
+        data:[overall[0],overall[1],overall[2]],
+        fill: true,
+        backgroundColor:gradientStroke,
+        borderColor: '#1f8ef1',
+        borderWidth: 2,
+        borderDash: [],
+        borderDashOffset: 0.0,
+        pointBackgroundColor: '#1f8ef1',
+        pointBorderColor: 'rgba(255,255,255,0)',
+        pointHoverBackgroundColor: '#ffffff',
+        pointBorderWidth: 20,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 15,
+        pointRadius: 4,
+        }
+        ]
+    },
+    options:linewithoutlegend
+});
+
+let emo2 = document.getElementById('emotions_line').getContext("2d");
+let emo2_chart = new Chart(emo2,{
+   type:'line',
+   data:{
+      labels:['Sad', 'Angry', 'Happy'],
+      datasets:[{
+        label:"",
+        data:[overall[3],overall[4],overall[5]],
+        fill: true,
+        backgroundColor:gradientStroke,
+        borderColor: '#1f8ef1',
+        borderWidth: 2,
+        borderDash: [],
+        borderDashOffset: 0.0,
+        pointBackgroundColor: '#1f8ef1',
+        pointBorderColor: 'rgba(255,255,255,0)',
+        pointHoverBackgroundColor: '#ffffff',
+        pointBorderWidth: 20,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 15,
+        pointRadius: 4,
+        }
+        ]
+    },
+    options:linewithoutlegend
+});
+
+
+
+    /*function loaddata(canid, lable1, lable2, lable3, lable4, lable5, lable6){
+        this.canid = canid;
+        this.lable1 = lable1;
+        this.lable2 = lable2;
+        this.lable3 = lable3;
+        this.lable4 = lable4;
+        this.lable5 = lable5;
+        this.lable6 = lable6;
+        var x = 100;//parseInt("{{positive}}");
+        var y =  600;//parseInt("{{negative}}");
+        var z =  700;//parseInt("{{neutral}}");
+        var sad = 600;//parseInt("{{sad}}");
+        var ang = 800;//parseInt("{{ang}}");
+        var joy = 900;//parseInt("{{joy}}");
+        var total = x+y+z+sad+ang+joy;
+        var type = 'line';
+        var all = [x,y,z,sad,ang,joy];
+        var bg1 = ['#003333','#E62727','#10375C'];
+        var bg2 = ['#2A0033','#CC3300','#F3C623'];
+        Chart.defaults.global.responsive=true;
+        //Chart.defaults.global.defaultFontSize='2px';
+
+
+        let massPopChart = new Chart(ctx,{
+         type:type,
+            data:{
+                labels:labels,
+                datasets:[{
+                    barPercentage:0.5,
+                    categoryPercentage: 0.7,
+                 label:"",
+                 data:data,
+                 fill: true,
+            backgroundColor:gradientStroke,
+            borderColor: '#1f8ef1',
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: '#1f8ef1',
+            pointBorderColor: 'rgba(255,255,255,0)',
+            pointHoverBackgroundColor: '#00d6b4',
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 4,
+        }]
+    },
+    options:linechartoptions
+});}*/
+</script>
+</body>
+</html>
