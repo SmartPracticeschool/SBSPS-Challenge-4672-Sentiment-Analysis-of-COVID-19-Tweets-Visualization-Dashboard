@@ -7,7 +7,7 @@
 
 **All Over Data:** This All Over Data is the home page of the web-app. This contains different graphs or charts for the results of the sentiment analysis and latest tweets regarding COVID19.
 
-**Major Cities:** This page contains different charts or graphs of data of the sentiment analysis done location-wise. We have selected the main 4 locations (Mumbai, Delhi, Kolkata, and Chennai) and we will visualize the data according to the location.
+**Major Cities:** This page contains different charts or graphs of data of the sentiment analysis done location-wise. We have selected the main 4 locations (Mumbai, Delhi, Banglore, and Chennai) and we will visualize the data according to the location.
 
 **Responsive Design:** The design of site is responsive i.e it can be viewd on any device without facing any trouble.
 
