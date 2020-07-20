@@ -15,4 +15,6 @@
 
 **Link:** http://covidsentimentanalysis.pythonanywhere.com/
 
+**Report:** <a href="https://docs.google.com/document/d/16Iybou4WgjzwLMhZzGY4bwGIZXZq-1WLn1gJh45KC1k/edit">Click Here</a>
+
 **P.S.** : The site gets refreshed after 24hrs.
