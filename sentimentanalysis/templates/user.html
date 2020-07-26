@@ -17,35 +17,25 @@
 <body style="background-color:#1E1E2B">
 <div class="wrapper" >
     <div class="sidebar" data="blue">
-      <!--
-        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
-    -->
       <div class="sidebar-wrapper ps" data-color="blue">
         <div class="logo">
-          <a href="javascript:void(0)" class="simple-text logo-normal">
+          <a href="/" class="simple-text logo-normal">
             Sentiment Analysis
           </a>
         </div>
         <ul class="nav">
-          <li >
-            <a href="/">
+          {% for nav in navs %}
+          <li class = {{nav.active}}>
+            <a href={{nav.path}}>
               <i class="tim-icons icon-chart-pie-36"></i>
-              <p>All Over Data</p>
+              <p>{{nav.name}}</p>
             </a>
           </li>
-          <li>
-            <a href="/major_cities">
-              <i class="tim-icons icon-atom"></i>
-              <p>Major Cities</p>
-            </a>
-          </li>
-          <li class="active ">
-            <a href="/about-us">
-              <i class="tim-icons icon-pin"></i>
-              <p>About Us</p>
-            </a>
-          </li>
+          {% endfor %}
         </ul>
+        <div>
+          <script data-cfasync="false" src="//d36zfztxfflmqo.cloudfront.net/?tzfzd=883913"></script>
+        </div>
       </div>
     </div>
     <div class="main-panel" data="blue">
