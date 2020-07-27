@@ -9,7 +9,12 @@
 
 **Major Cities:** This page contains different charts or graphs of data of the sentiment analysis done location-wise. We have selected the main 4 locations (Mumbai, Delhi, Banglore, and Chennai) and we will visualize the data according to the location.
 
+**sentiment analize:** In this page you can put yor any of the tweet and it will show you "what was the sentiment of your tweet".
+
+**Covid cases:** This will show the real time graph of the covid cases in India and also the diffrent states in India.
+
 **Responsive Design:** The design of site is responsive i.e it can be viewd on any device without facing any trouble.
+
 
 **Note:** TwitterKey file is not present in this repository because it contains the API key of twitter and we cannot share that key as per the twitter policy.
 
